@@ -16,7 +16,7 @@ class Router {
     $this->routes[$method][$path] = [$controller, $action];
   }
 
-  function resolve(): void {
+  function resolve(): string {
     $method = $_SERVER['REQUEST_METHOD'];
     $path = $_SERVER['REQUEST_URI'] ?? '/';
     $path = explode('?', $path)[0];
@@ -32,9 +32,10 @@ class Router {
       $controller = new $callback[0]();
     }
     if ($controller) {
+      ob_start();
       $controller->{$callback[1]}();
+      return ob_get_clean();
     }
-
+    return '';
   }
-
 }

@@ -29,16 +29,13 @@ $router = new Router();
 $router->add('GET', '/', TaskListController::class, 'home');
 $router->add('GET', '/delegated', TaskListController::class, 'delegated');
 $router->add('GET', '/assigned', TaskListController::class, 'assigned');
+$router->add('POST', '/tasks', TaskListController::class, 'create');
+$router->add('POST', '/task', TaskListController::class, 'update');
 $router->add('GET', '/login', LoginController::class, 'login_screen');
 $router->add('GET', '/logout', LoginController::class, 'logout');
 $router->add('POST', '/login', LoginController::class, 'login');
 
-// Output buffering to catch output from controllers/views so we don't have
-// to eval() but can use PHP files as "Templating" engine.
-ob_start();
-$router->resolve();
-$body = ob_get_contents();
-ob_clean();
+$body = $router->resolve();
 
 $messages = FlashMessages::retrieve();
 

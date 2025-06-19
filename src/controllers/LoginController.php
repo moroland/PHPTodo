@@ -12,7 +12,7 @@ class LoginController {
 
   function login() {
     $user_list = new UserList();
-    $user = $user_list->find_by_name($_POST['username']);
+    $user = $user_list->getByName($_POST['username']);
     if ($user && $user->validatePassword($_POST['password'])) {
       Session::logIn($user->id);
       FlashMessages::add('Successful Login');

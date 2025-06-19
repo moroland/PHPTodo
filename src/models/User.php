@@ -5,8 +5,8 @@
 
 class User {
   public $id;
-  public $username;
-  private $password;
+  protected $username;
+  protected $password;
 
   function __construct($id, $username = '', $password = '') {
     $this->id = $id;
@@ -16,5 +16,9 @@ class User {
 
   function validatePassword($password): bool {
     return password_verify($password, $this->password);
+  }
+
+  function getUsername(): string {
+    return $this->username;
   }
 }

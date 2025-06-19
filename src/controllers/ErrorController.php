@@ -12,6 +12,12 @@ class ErrorController {
   }
 
    function forbidden() {
+     http_response_code(403);
+    FlashMessages::add('Forbidden');
+  }
+
+   function unathenticated() {
+     http_response_code(401);
     FlashMessages::add('Please login to access this page.');
     Router::redirect('login');
   }
